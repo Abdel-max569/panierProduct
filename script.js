@@ -192,6 +192,7 @@ function calculerMontantTotal() {
 let boutton_open = document.querySelector(".btn-open");
 
 
+
 function ouvriPanier() {
     let elementPanier = document.querySelector(".body-panier");
     if (!elementPanier) return;
