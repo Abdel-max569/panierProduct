@@ -1,33 +1,74 @@
 const produits = [
     {
         id: "PRO001",
-        libelle: "Lait",
-        prix: 1000,
-        image: "lait.jpeg"
+        libelle: "Royce phantom",
+        prix: 100500000,
+        image: "roolf1.jpeg"
     },
     {
         id: "PRO002",
-        libelle: "Riz",
-        prix: 50000,
-        image: "riz.jpeg"
+        libelle: "Tesla Model Pi",
+        prix: 5000000,
+        image: "tesla1.jpeg"
     },
     {
         id: "PRO003",
-        libelle: "Vitago",
-        prix: 100,
-        image: "vitago.jpeg"
+        libelle: "Tesla",
+        prix: 800000,
+        image: "tesla2.jpeg"
     },
     {
         id: "PRO004",
-        libelle: "Ordinateur",
-        prix: 250000,
-        image: "pc.jpeg"
+        libelle: "Porshe",
+        prix: 2500000,
+        image: "porshe.jpeg"
     },
     {
         id: "PRO005",
-        libelle: "Souris",
-        prix: 5000,
-        image: "sours.jpeg"
+        libelle: "Moto",
+        prix: 5000000,
+        image: "moto.jpeg"
+    }
+    ,
+    {
+        id: "PRO006",
+        libelle: "Range Rover",
+        prix: 158400000,
+        image: "range.jpeg"
+    }
+    ,
+    {
+        id: "PRO007",
+        libelle: "RAV4",
+        prix: 189250000,
+        image: "rav4.jpeg"
+    },
+    {
+        id: "PRO008",
+        libelle: "Lamborgini",
+        prix: 80000000,
+        image: "lambo.jpeg"
+    }
+    ,
+    {
+        id: "PRO009",
+        libelle: "Lamborgini V2",
+        prix: 57825000,
+        image: "lambo2.jpeg"
+    }
+    ,
+    {
+        id: "PRO0010",
+        libelle: "Lamborgini V3",
+        prix: 95554000,
+        image: "lambo3.jpeg"
+    }
+    ,
+    {
+        id: "PRO0011",
+        libelle: "Roll Royce",
+        prix: 39845000,
+        image: "rooll1.jpeg"
     }
 ];
 
@@ -42,8 +83,11 @@ function afficherProduit() {
         let divProduit = document.createElement("div");
         divProduit.className = "produitOne";
         divProduit.innerHTML = `<img src="img/${produit.image}"/>
-        <h3>${produit.libelle}</h3>
+                                <div class="produit-info">
+                                <h3>${produit.libelle}</h3>
                                 <strong>${produit.prix} FCFA</strong> </br></br>
+                                </div>
+
                                 <button onClick="ajouterProduit('${produit.id}')" class="produit-btn">Add to panier</button>
                                `;
         divProduits.append(divProduit);
@@ -65,6 +109,7 @@ function ajouterProduit(id) {
 }
 afficherProduit();
 
+let spanNbreProduit = document.querySelector(".nbre_produit");
 
 function afficherPanier() {
     let elementPanier = document.getElementById("panier");
@@ -79,27 +124,23 @@ function afficherPanier() {
         divProduit.innerHTML = `<h3>${element_of_panier.libelle}</h3>
                                 <strong class="prix">${element_of_panier.prix} FCFA</strong> 
                                 <br> <strong>Quantite : ${element_of_panier.qtite}</strong>
-                                <button class="btn-modif" onClick="modifierQuantitePlus('${element_of_panier.id}', 1)">+</button>
-                                <button class="btn-modif" onClick="modifierQuantiteMoins('${element_of_panier.id}', -1)">--</button>                               
-                                <button class="btn-modif btn-del" onClick="deleteProduct('${element_of_panier.id}', -1)">❌</button>
+                                <button class="btn-modif" onClick="ajouterProduit('${element_of_panier.id}')">+</button>
+                                <button class="btn-modif" onClick="modifierQuantiteMoins('${element_of_panier.id}')">--</button>                               
+                                <button class="btn-modif btn-del" onClick="deleteProduct('${element_of_panier.id}')">❌</button>
                                 `;
         elementPanier.appendChild(divProduit);
     });
 
     calculerMontantTotal();
+    spanNbreProduit.textContent = productPanier.length;
+
+
 }
 afficherPanier();
 
 
 
-function modifierQuantitePlus(id) {
-    let produit_panier = productPanier.find(itemPanier => itemPanier.id === id);
-    //console.log(produit_panier);
-    if (produit_panier) {
-        produit_panier.qtite++;
-    }
-    afficherPanier();
-}
+
 
 function modifierQuantiteMoins(id) {
     let produit_panier = productPanier.find((itemPanier) => itemPanier.id === id);
@@ -157,10 +198,12 @@ function ouvriPanier() {
     const styleActuel = window.getComputedStyle(elementPanier).display;
     if (styleActuel === "none") {
         elementPanier.style.display = "block";
-        boutton_open.textContent = "Fermer le panier";
+        boutton_open.textContent = "Fermer panier";
+        boutton_open.append(spanNbreProduit);
     } else {
         elementPanier.style.display = "none";
-        boutton_open.textContent = "Ouvrir le panier";
+        boutton_open.textContent = "Voir panier";
+        boutton_open.append(spanNbreProduit)
     }
 }
 
